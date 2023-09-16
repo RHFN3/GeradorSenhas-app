@@ -1,15 +1,34 @@
 import { View, StyleSheet, Text, TouchableOpacity, Pressable } from "react-native";
+import * as Clipboard from 'expo-clipboard';
 
+export function ModalPassword( {password, handleClose}){
 
-export function ModalPassword(){
+    async function handleCopyPassword(){
+        await Clipboard.setStringAsync(password)
+        alert("Senha salva!")
+        handleClose();
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.content}>
                 <Text style={styles.title}>Senha gerada</Text>
 
-                <Pressable style={styles.innerPassword}>
-                    <Text style={styles.text}>123123</Text>
+                <Pressable style={styles.innerPassword} onLongPress={handleCopyPassword}>
+                    <Text style={styles.text}>
+                        {password}
+                    </Text>
                 </Pressable>
+
+                <View style={styles.buttonArea}>
+                    <TouchableOpacity style={styles.button} onPress={handleClose}>
+                        <Text style={styles.buttonText}>Voltar</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={[styles.button, styles.buttonSave]}>
+                        <Text style={styles.buttonSaveText}>Salvar senha</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
@@ -47,5 +66,27 @@ const styles = StyleSheet.create({
     text: {
         color: "#FFF",
         textAlign: 'center',
+    },
+    buttonArea: {
+        flexDirection: "row",
+        width: '90%',
+        marginTop: 8,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    button: {
+        flex: 1,
+        alignItems:'center',
+        marginTop: 14,
+        marginButton: 14,
+        padding: 8,
+    },
+    buttonSave:{
+        backgroundColor: "#00B1B9",
+        borderRadius: 8,
+    },
+    buttonSaveText:{
+        color: "#FFF",
+        fontWeight: 'bold',
     },
 })

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Modal } from 'react-na
 import Slider from '@react-native-community/slider';
 import {ModalPassword} from './src/components/modal';
 
-let charset = "qwertyuioipçlkjhgfdsdazxcvbnmQWERTYUIOPÇLKJHGFDSAZXCVBNM0123456789"
+let charset = ".+-,/*qwertyuioipçlkjhgfdsdazxcvbnmQWERTYUIOPÇLKJHGFDSAZXCVBNM0123456789"
 
 export default function App() {
   const [size, setSize] = useState(10);
@@ -17,7 +17,6 @@ export default function App() {
     for (let i = 0, n = charset.length; i < size; i++){
       password += charset.charAt(Math.floor(Math.random() * n))
     }
-    
     setPasswordValue(password)
     setModalVisible(true)
 
@@ -26,17 +25,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-    <Image
-    source={require("./src/assets/logo.png")}
-    style = {styles.logo}
-    />
+
+    <Image source={require("./src/assets/logo.png")} style = {styles.logo}/>
 
     <Text style={styles.title}>{size} Caracteres</Text>
     
     <View style={styles.area}>
       <Slider
       style={{ height: 50}}
-      minimumValue={6}
+      minimumValue={8}
       maximumValue={20}
       maximumTrackTintColor='#51C94F'
       minimumTrackTintColor='#ECA2A3'
@@ -51,7 +48,7 @@ export default function App() {
     </TouchableOpacity>
 
     <Modal visible={modalVisible} animationType='fade' transparent={true}>
-      <ModalPassword/>
+      <ModalPassword password={passwordValue} handleClose={ () => setModalVisible(false)}/>
     </Modal>
     
     <StatusBar style="auto" />
