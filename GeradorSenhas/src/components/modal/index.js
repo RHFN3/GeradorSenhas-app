@@ -4,8 +4,8 @@ import * as Clipboard from 'expo-clipboard';
 export function ModalPassword( {password, handleClose}){
 
     async function handleCopyPassword(){
-        await Clipboard.setStringAsync(password)
-        alert("Senha salva!")
+        await Clipboard.setStringAsync(password);
+        alert("Senha salva!");
         handleClose();
     }
 
